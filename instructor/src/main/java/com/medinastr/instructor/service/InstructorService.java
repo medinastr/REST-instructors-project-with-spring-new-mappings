@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InstructorService {
@@ -41,5 +42,10 @@ public class InstructorService {
     public List<Instructor> getInstructorsList() {
         List<Instructor> instructors = instructorRepository.findAll();
         return instructors;
+    }
+
+    public Optional<Instructor> getInstructor(int id) {
+        Optional<Instructor> instructor = instructorRepository.findById(id);
+        return instructor;
     }
 }
