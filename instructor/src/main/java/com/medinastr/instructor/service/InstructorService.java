@@ -7,6 +7,8 @@ import com.medinastr.instructor.entity.InstructorDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class InstructorService {
 
@@ -34,5 +36,10 @@ public class InstructorService {
         Instructor savedInstructor = instructorRepository.save(dbInstructor);
 
         return savedInstructor;
+    }
+
+    public List<Instructor> getInstructorsList() {
+        List<Instructor> instructors = instructorRepository.findAll();
+        return instructors;
     }
 }
