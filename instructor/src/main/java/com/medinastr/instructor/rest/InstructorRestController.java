@@ -45,4 +45,10 @@ public class InstructorRestController {
             return ResponseEntity.status(404).body(null);
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Instructor> delete(@PathVariable int id) {
+        Instructor instructor = instructorService.delete(id);
+        return ResponseEntity.status(204).body(instructor);
+    }
 }

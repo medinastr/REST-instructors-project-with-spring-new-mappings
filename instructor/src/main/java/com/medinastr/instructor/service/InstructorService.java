@@ -20,6 +20,7 @@ public class InstructorService {
         this.instructorRepository = instructorRepository;
     }
 
+    // for POST
     public Instructor save(InstructorDTO instructorDTO) {
         Instructor dbInstructor = new Instructor();
         InstructorDetail dbInstructorDetail = new InstructorDetail();
@@ -47,5 +48,15 @@ public class InstructorService {
     public Optional<Instructor> getInstructor(int id) {
         Optional<Instructor> instructor = instructorRepository.findById(id);
         return instructor;
+    }
+
+    public Instructor delete(int id) {
+        Optional<Instructor> instructor = instructorRepository.findById(id);
+        if(instructor.isPresent()) {
+            instructorRepository.deleteById(id);
+            return instructor.get();
+        } else {
+            return null;
+        }
     }
 }
