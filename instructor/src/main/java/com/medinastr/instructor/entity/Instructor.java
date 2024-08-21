@@ -1,12 +1,14 @@
 package com.medinastr.instructor.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="instructor")
 public class Instructor {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
@@ -23,6 +25,9 @@ public class Instructor {
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="instructor_detail_id")
     private InstructorDetail instructorDetail;
+
+    @OneToMany(mappedBy = "instructor") // name of the instructor attribute in Course entity
+    private List<Course> courses;
 
     public Instructor() {}
 

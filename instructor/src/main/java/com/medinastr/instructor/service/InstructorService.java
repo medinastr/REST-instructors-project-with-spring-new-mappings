@@ -33,8 +33,6 @@ public class InstructorService {
         dbInstructor.setEmail(instructorDTO.getEmail()); // get email
         dbInstructor.setInstructorDetail(dbInstructorDetail); // save instructor detail
 
-        System.out.println(dbInstructor.getFirstName());
-
         Instructor savedInstructor = instructorRepository.save(dbInstructor);
 
         return savedInstructor;
