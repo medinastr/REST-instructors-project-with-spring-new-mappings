@@ -47,8 +47,12 @@ public class InstructorRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Instructor> delete(@PathVariable int id) {
-        Instructor instructor = instructorService.delete(id);
-        return ResponseEntity.status(204).body(instructor);
+    public ResponseEntity<String> delete(@PathVariable int id) {
+        boolean checkDelete = instructorService.delete(id);
+        if(checkDelete == true) {
+            return ResponseEntity.status(204).body(null);
+        } else {
+            return ResponseEntity.status(404).body("Instructor not found: " + id);
+        }
     }
 }

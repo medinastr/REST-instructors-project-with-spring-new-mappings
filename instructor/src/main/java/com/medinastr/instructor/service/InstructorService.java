@@ -50,13 +50,13 @@ public class InstructorService {
         return instructor;
     }
 
-    public Instructor delete(int id) {
+    public boolean delete(int id) {
         Optional<Instructor> instructor = instructorRepository.findById(id);
         if(instructor.isPresent()) {
             instructorRepository.deleteById(id);
-            return instructor.get();
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
 }

@@ -21,7 +21,7 @@ public class InstructorDetailRestController {
         if(checkDelete == true) {
             return ResponseEntity.status(204).body(null);
         } else {
-            return ResponseEntity.status(404).body("Instructor not found: " + id);
+            return ResponseEntity.status(404).body("Instructor detail not found: " + id);
         }
     }
 }

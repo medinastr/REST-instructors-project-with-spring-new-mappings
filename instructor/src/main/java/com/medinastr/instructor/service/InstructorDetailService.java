@@ -26,7 +26,6 @@ public class InstructorDetailService {
             InstructorDetail instructorDetail = instructor.getInstructorDetail();
 
             if (instructorDetail != null) {
-                System.out.println(instructor);
                 instructor.setInstructorDetail(null);  // break the Instructor relationship with your detail
                 instructorRepository.save(instructor);  // update the Instructor without detail
                 instructorDetailRepository.delete(instructorDetail); // delete the InstructorDetail
