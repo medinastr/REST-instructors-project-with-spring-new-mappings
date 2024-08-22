@@ -1,7 +1,9 @@
 package com.medinastr.instructor.service;
 
 import com.medinastr.instructor.dao.InstructorRepository;
+import com.medinastr.instructor.dto.InstructorCourseDTO;
 import com.medinastr.instructor.dto.InstructorDTO;
+import com.medinastr.instructor.entity.Course;
 import com.medinastr.instructor.entity.Instructor;
 import com.medinastr.instructor.entity.InstructorDetail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class InstructorService {
         this.instructorRepository = instructorRepository;
     }
 
-    // for POST
+    // POST for "/instructors"
     public Instructor save(InstructorDTO instructorDTO) {
         Instructor dbInstructor = new Instructor();
         InstructorDetail dbInstructorDetail = new InstructorDetail();
@@ -32,6 +34,28 @@ public class InstructorService {
         dbInstructor.setLastName(instructorDTO.getLastName()); // get last name
         dbInstructor.setEmail(instructorDTO.getEmail()); // get email
         dbInstructor.setInstructorDetail(dbInstructorDetail); // save instructor detail
+
+        Instructor savedInstructor = instructorRepository.save(dbInstructor);
+
+        return savedInstructor;
+    }
+
+    // POST for "/instructors/courses"
+    public Instructor saveWithCourses(InstructorCourseDTO instructorCourseDTO) {
+        Instructor dbInstructor = new Instructor();
+        InstructorDetail dbInstructorDetail = new InstructorDetail();
+        Course dbCourse = new Course();
+
+        dbCourse.setTitle(instructorCourseDTO.getTitle()); // get course title
+
+        dbInstructorDetail.setYoutubeChannel(instructorCourseDTO.getYoutubeChannel()); // get yt channel
+        dbInstructorDetail.setHobby(instructorCourseDTO.getHobby()); // get hobby
+
+        dbInstructor.setFirstName(instructorCourseDTO.getFirstName()); // get firstName
+        dbInstructor.setLastName(instructorCourseDTO.getLastName()); // get lastName
+        dbInstructor.setEmail(instructorCourseDTO.getEmail()); // get email
+        dbInstructor.addCourse(dbCourse); // get Course
+        dbInstructor.setInstructorDetail(dbInstructorDetail); // get InstructorDetail
 
         Instructor savedInstructor = instructorRepository.save(dbInstructor);
 

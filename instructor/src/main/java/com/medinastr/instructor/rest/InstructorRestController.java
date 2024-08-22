@@ -1,6 +1,8 @@
 package com.medinastr.instructor.rest;
 
+import com.medinastr.instructor.dto.InstructorCourseDTO;
 import com.medinastr.instructor.dto.InstructorDTO;
+import com.medinastr.instructor.entity.Course;
 import com.medinastr.instructor.entity.Instructor;
 import com.medinastr.instructor.service.InstructorService;
 import org.aspectj.apache.bcel.classfile.Module;
@@ -27,6 +29,12 @@ public class InstructorRestController {
     @PostMapping
     public ResponseEntity<Instructor> save(@RequestBody InstructorDTO instructorDTO) {
         Instructor dbInstructor = instructorService.save(instructorDTO);
+        return ResponseEntity.status(201).body(dbInstructor);
+    }
+
+    @PostMapping("/courses")
+    public ResponseEntity<Instructor> saveWithCourses(@RequestBody InstructorCourseDTO instructorCourseDTO) {
+        Instructor dbInstructor = instructorService.saveWithCourses(instructorCourseDTO);
         return ResponseEntity.status(201).body(dbInstructor);
     }
 
