@@ -3,6 +3,7 @@ package com.medinastr.instructor.service;
 import com.medinastr.instructor.dao.InstructorRepository;
 import com.medinastr.instructor.dto.InstructorCourseDTO;
 import com.medinastr.instructor.dto.InstructorDTO;
+import com.medinastr.instructor.dto.InstructorDetailDTO;
 import com.medinastr.instructor.entity.Course;
 import com.medinastr.instructor.entity.Instructor;
 import com.medinastr.instructor.entity.InstructorDetail;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class InstructorService {
@@ -23,16 +25,16 @@ public class InstructorService {
     }
 
     // POST for "/instructors"
-    public Instructor save(InstructorDTO instructorDTO) {
+    public Instructor save(InstructorDetailDTO instructorDetailDTO) {
         Instructor dbInstructor = new Instructor();
         InstructorDetail dbInstructorDetail = new InstructorDetail();
 
-        dbInstructorDetail.setYoutubeChannel(instructorDTO.getYoutubeChannel()); // get yt channel
-        dbInstructorDetail.setHobby(instructorDTO.getHobby()); // get hobby
+        dbInstructorDetail.setYoutubeChannel(instructorDetailDTO.getYoutubeChannel()); // get yt channel
+        dbInstructorDetail.setHobby(instructorDetailDTO.getHobby()); // get hobby
 
-        dbInstructor.setFirstName(instructorDTO.getFirstName()); // get first name
-        dbInstructor.setLastName(instructorDTO.getLastName()); // get last name
-        dbInstructor.setEmail(instructorDTO.getEmail()); // get email
+        dbInstructor.setFirstName(instructorDetailDTO.getFirstName()); // get first name
+        dbInstructor.setLastName(instructorDetailDTO.getLastName()); // get last name
+        dbInstructor.setEmail(instructorDetailDTO.getEmail()); // get email
         dbInstructor.setInstructorDetail(dbInstructorDetail); // save instructor detail
 
         Instructor savedInstructor = instructorRepository.save(dbInstructor);
@@ -62,9 +64,13 @@ public class InstructorService {
         return savedInstructor;
     }
 
-    public List<Instructor> getInstructorsList() {
+    // GET -> get an instructors list without details and courses
+    public List<InstructorDTO> getInstructorsList() {
         List<Instructor> instructors = instructorRepository.findAll();
-        return instructors;
+        return instructors.stream()
+                .map(instructor -> new InstructorDTO(
+                        instructor.getFirstName(), instructor.getLastName(), instructor.getEmail()))
+                .collect(Collectors.toList());
     }
 
     public Optional<Instructor> getInstructor(int id) {
