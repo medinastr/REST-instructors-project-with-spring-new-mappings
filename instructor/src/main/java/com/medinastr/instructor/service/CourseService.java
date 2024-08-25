@@ -37,6 +37,24 @@ public class CourseService {
         return dbCourse;
     }
 
+    // for PUT
+    public boolean update(int id, CourseDTO courseDTO) {
+        Optional<Course> optionalCourse = courseRepository.findById(id);
+        Optional<Instructor> optionalInstructor = instructorRepository.findById(courseDTO.getInstructor_id());
+
+        if(optionalCourse.isPresent() && optionalInstructor.isPresent()) {
+            Course course = new Course();
+            course.setId(id);
+            course.setTitle(courseDTO.getTitle());
+            course.setInstructor(optionalInstructor.get());
+
+            courseRepository.save(course);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // for GET mapping -> "/courses" will get all the courses
     public List<CourseDTO> getCoursesList() {
         List<Course> courses = courseRepository.findAll();
