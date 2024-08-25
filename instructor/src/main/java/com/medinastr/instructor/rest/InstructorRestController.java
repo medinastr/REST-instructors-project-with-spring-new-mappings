@@ -24,8 +24,8 @@ public class InstructorRestController {
     }
 
     @PostMapping("/details")
-    public ResponseEntity<Instructor> save(@RequestBody InstructorDetailDTO instructorDetailDTO) {
-        Instructor dbInstructor = instructorService.save(instructorDetailDTO);
+    public ResponseEntity<Instructor> saveWithDetails(@RequestBody InstructorDetailDTO instructorDetailDTO) {
+        Instructor dbInstructor = instructorService.saveWithDetails(instructorDetailDTO);
         return ResponseEntity.status(201).body(dbInstructor);
     }
 
@@ -35,6 +35,7 @@ public class InstructorRestController {
         return ResponseEntity.status(201).body(dbInstructor);
     }
 
+    // GET for getting Instructor list without InstructorDetail and Course
     @GetMapping
     public ResponseEntity<List<InstructorDTO>> getInstructorsList() {
         List<InstructorDTO> instructors = instructorService.getInstructorsList();

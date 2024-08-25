@@ -19,6 +19,7 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
+    // for GET mapping -> "/courses" will get all the courses
     public List<CourseDTO> getCoursesList() {
         List<Course> courses = courseRepository.findAll();
 

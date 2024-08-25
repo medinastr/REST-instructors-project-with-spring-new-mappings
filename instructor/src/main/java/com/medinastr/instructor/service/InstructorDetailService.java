@@ -12,12 +12,16 @@ import java.util.Optional;
 @Service
 public class InstructorDetailService {
 
-    @Autowired
-    private InstructorDetailRepository instructorDetailRepository;
+    private final InstructorDetailRepository instructorDetailRepository;
+    private final InstructorRepository instructorRepository;
 
     @Autowired
-    private InstructorRepository instructorRepository;
+    public InstructorDetailService(InstructorDetailRepository instructorDetailRepository, InstructorRepository instructorRepository) {
+        this.instructorDetailRepository = instructorDetailRepository;
+        this.instructorRepository = instructorRepository;
+    }
 
+    // for DELETE -> /instructors/{id}
     public boolean deleteInstructorDetail(int id) {
         Optional<Instructor> instructorOptional = instructorRepository.findById(id);
 

@@ -9,6 +9,17 @@ public class InstructorCourseDTO {
     private String hobby;
     private String title;
 
+    public InstructorCourseDTO() {}
+
+    public InstructorCourseDTO(String firstName, String lastName, String email, String youtubeChannel, String hobby, String title) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.youtubeChannel = youtubeChannel;
+        this.hobby = hobby;
+        this.title = title;
+    }
+
     public String getFirstName() {
         return firstName;
     }

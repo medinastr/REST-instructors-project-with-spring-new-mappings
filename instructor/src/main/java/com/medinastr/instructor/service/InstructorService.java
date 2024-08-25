@@ -24,8 +24,8 @@ public class InstructorService {
         this.instructorRepository = instructorRepository;
     }
 
-    // POST for "/instructors"
-    public Instructor save(InstructorDetailDTO instructorDetailDTO) {
+    // POST for "/instructors/details"
+    public Instructor saveWithDetails(InstructorDetailDTO instructorDetailDTO) {
         Instructor dbInstructor = new Instructor();
         InstructorDetail dbInstructorDetail = new InstructorDetail();
 
@@ -64,7 +64,7 @@ public class InstructorService {
         return savedInstructor;
     }
 
-    // GET -> get an instructors list without details and courses
+    // for GET mapping -> instructors list without details and courses
     public List<InstructorDTO> getInstructorsList() {
         List<Instructor> instructors = instructorRepository.findAll();
         return instructors.stream()
