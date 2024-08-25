@@ -42,4 +42,14 @@ public class CourseRestController {
             return ResponseEntity.status(404).body("Data not found: " + courseDTO);
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable int id) {
+        boolean checkDelete = courseService.delete(id);
+        if(checkDelete) {
+            return ResponseEntity.status(204).body("Delete successfully.");
+        } else {
+            return ResponseEntity.status(404).body("Course not found: " + id);
+        }
+    }
 }

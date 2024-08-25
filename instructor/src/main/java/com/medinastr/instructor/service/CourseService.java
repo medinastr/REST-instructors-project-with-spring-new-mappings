@@ -58,9 +58,19 @@ public class CourseService {
     // for GET mapping -> "/courses" will get all the courses
     public List<CourseDTO> getCoursesList() {
         List<Course> courses = courseRepository.findAll();
-
         return courses.stream()
                 .map(course -> new CourseDTO(course.getTitle(), course.getInstructor().getId()))
                 .collect(Collectors.toList());
+    }
+
+    // for DELETE mapping
+    public boolean delete(int id) {
+        Optional<Course> optionalCourse = courseRepository.findById(id);
+        if(optionalCourse.isPresent()) {
+            courseRepository.delete(optionalCourse.get());
+            return true;
+        } else {
+            return false;
+        }
     }
 }
