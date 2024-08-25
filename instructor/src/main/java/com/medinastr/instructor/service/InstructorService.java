@@ -78,6 +78,20 @@ public class InstructorService {
         return instructor;
     }
 
+    public Optional<Instructor> update(int id, InstructorDTO instructorDTO) {
+        Optional<Instructor> optionalInstructor = instructorRepository.findById(id);
+
+        if(optionalInstructor.isPresent()) {
+            Instructor instructor = optionalInstructor.get();
+            instructor.setFirstName(instructorDTO.getFirstName());
+            instructor.setLastName(instructorDTO.getLastName());
+            instructor.setEmail(instructorDTO.getEmail());
+            instructorRepository.save(instructor);
+        }
+
+        return optionalInstructor;
+    }
+
     public boolean delete(int id) {
         Optional<Instructor> instructor = instructorRepository.findById(id);
         if(instructor.isPresent()) {

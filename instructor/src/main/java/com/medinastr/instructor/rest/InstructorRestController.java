@@ -52,6 +52,16 @@ public class InstructorRestController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<String> update(@PathVariable int id, @RequestBody InstructorDTO instructorDTO) {
+        Optional<Instructor> dbInstructor = instructorService.update(id, instructorDTO);
+        if(dbInstructor.isPresent()) {
+            return ResponseEntity.status(201).body("Successfully updated!");
+        } else {
+            return ResponseEntity.status(404).body("Instructor not found: " + id);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable int id) {
         boolean checkDelete = instructorService.delete(id);
