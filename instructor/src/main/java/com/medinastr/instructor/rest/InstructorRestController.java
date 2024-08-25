@@ -1,8 +1,10 @@
 package com.medinastr.instructor.rest;
 
+import com.medinastr.instructor.dto.CourseDTO;
 import com.medinastr.instructor.dto.InstructorCourseDTO;
 import com.medinastr.instructor.dto.InstructorDTO;
 import com.medinastr.instructor.dto.InstructorDetailDTO;
+import com.medinastr.instructor.entity.Course;
 import com.medinastr.instructor.entity.Instructor;
 import com.medinastr.instructor.service.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,17 @@ public class InstructorRestController {
         Optional<Instructor> instructor = instructorService.getInstructor(id);
         if(instructor.isPresent()) {
             return ResponseEntity.status(200).body(instructor.get());
+        } else {
+            return ResponseEntity.status(404).body(null);
+        }
+    }
+
+    @GetMapping("{id}/courses")
+    public ResponseEntity<List<CourseDTO>> instructorCourses(@PathVariable int id) {
+        Optional<Instructor> instructor = instructorService.getInstructor(id);
+        if(instructor.isPresent()) {
+            List<CourseDTO> courses = instructorService.instructorCourses(instructor.get());
+            return ResponseEntity.status(200).body(courses);
         } else {
             return ResponseEntity.status(404).body(null);
         }

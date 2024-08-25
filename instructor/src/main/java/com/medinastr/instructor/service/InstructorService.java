@@ -1,6 +1,7 @@
 package com.medinastr.instructor.service;
 
 import com.medinastr.instructor.dao.InstructorRepository;
+import com.medinastr.instructor.dto.CourseDTO;
 import com.medinastr.instructor.dto.InstructorCourseDTO;
 import com.medinastr.instructor.dto.InstructorDTO;
 import com.medinastr.instructor.dto.InstructorDetailDTO;
@@ -73,9 +74,18 @@ public class InstructorService {
                 .collect(Collectors.toList());
     }
 
+    // for GET mapping -> get one instructor
     public Optional<Instructor> getInstructor(int id) {
         Optional<Instructor> instructor = instructorRepository.findById(id);
         return instructor;
+    }
+
+    // for GET mapping -> get courses of one instructor
+    public List<CourseDTO> instructorCourses(Instructor instructor) {
+        List<Course> courses = instructor.getCourses();
+        return courses.stream()
+                .map(course -> new CourseDTO(course.getTitle(), course.getInstructor().getId()))
+                .collect(Collectors.toList());
     }
 
     public Optional<Instructor> update(int id, InstructorDTO instructorDTO) {
