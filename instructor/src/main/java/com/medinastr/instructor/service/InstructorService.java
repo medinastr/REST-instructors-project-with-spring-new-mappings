@@ -3,7 +3,7 @@ package com.medinastr.instructor.service;
 import com.medinastr.instructor.dao.InstructorRepository;
 import com.medinastr.instructor.dto.CourseDTO;
 import com.medinastr.instructor.dto.InstructorCourseDTO;
-import com.medinastr.instructor.dto.InstructorDTO;
+import com.medinastr.instructor.dto.InstructorAndStudentDTO;
 import com.medinastr.instructor.dto.InstructorDetailDTO;
 import com.medinastr.instructor.entity.Course;
 import com.medinastr.instructor.entity.Instructor;
@@ -66,10 +66,10 @@ public class InstructorService {
     }
 
     // for GET mapping -> instructors list without details and courses
-    public List<InstructorDTO> getInstructorsList() {
+    public List<InstructorAndStudentDTO> getInstructorsList() {
         List<Instructor> instructors = instructorRepository.findAll();
         return instructors.stream()
-                .map(instructor -> new InstructorDTO(
+                .map(instructor -> new InstructorAndStudentDTO(
                         instructor.getFirstName(), instructor.getLastName(), instructor.getEmail()))
                 .collect(Collectors.toList());
     }
@@ -88,14 +88,14 @@ public class InstructorService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<Instructor> update(int id, InstructorDTO instructorDTO) {
+    public Optional<Instructor> update(int id, InstructorAndStudentDTO instructorAndStudentDTO) {
         Optional<Instructor> optionalInstructor = instructorRepository.findById(id);
 
         if(optionalInstructor.isPresent()) {
             Instructor instructor = optionalInstructor.get();
-            instructor.setFirstName(instructorDTO.getFirstName());
-            instructor.setLastName(instructorDTO.getLastName());
-            instructor.setEmail(instructorDTO.getEmail());
+            instructor.setFirstName(instructorAndStudentDTO.getFirstName());
+            instructor.setLastName(instructorAndStudentDTO.getLastName());
+            instructor.setEmail(instructorAndStudentDTO.getEmail());
             instructorRepository.save(instructor);
         }
 

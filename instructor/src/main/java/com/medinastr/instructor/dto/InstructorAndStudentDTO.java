@@ -1,16 +1,14 @@
 package com.medinastr.instructor.dto;
 
-import com.medinastr.instructor.entity.Instructor;
-
-public class InstructorDTO {
+public class InstructorAndStudentDTO {
 
     private String firstName;
     private String lastName;
     private String email;
 
-    public InstructorDTO() {}
+    public InstructorAndStudentDTO() {}
 
-    public InstructorDTO(String firstName, String lastName, String email) {
+    public InstructorAndStudentDTO(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

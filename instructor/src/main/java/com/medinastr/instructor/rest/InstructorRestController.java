@@ -2,9 +2,8 @@ package com.medinastr.instructor.rest;
 
 import com.medinastr.instructor.dto.CourseDTO;
 import com.medinastr.instructor.dto.InstructorCourseDTO;
-import com.medinastr.instructor.dto.InstructorDTO;
+import com.medinastr.instructor.dto.InstructorAndStudentDTO;
 import com.medinastr.instructor.dto.InstructorDetailDTO;
-import com.medinastr.instructor.entity.Course;
 import com.medinastr.instructor.entity.Instructor;
 import com.medinastr.instructor.service.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +38,8 @@ public class InstructorRestController {
 
     // GET for getting Instructor list without InstructorDetail and Course
     @GetMapping
-    public ResponseEntity<List<InstructorDTO>> getInstructorsList() {
-        List<InstructorDTO> instructors = instructorService.getInstructorsList();
+    public ResponseEntity<List<InstructorAndStudentDTO>> getInstructorsList() {
+        List<InstructorAndStudentDTO> instructors = instructorService.getInstructorsList();
         return ResponseEntity.status(200).body(instructors);
     }
 
@@ -66,8 +65,8 @@ public class InstructorRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable int id, @RequestBody InstructorDTO instructorDTO) {
-        Optional<Instructor> dbInstructor = instructorService.update(id, instructorDTO);
+    public ResponseEntity<String> update(@PathVariable int id, @RequestBody InstructorAndStudentDTO instructorAndStudentDTO) {
+        Optional<Instructor> dbInstructor = instructorService.update(id, instructorAndStudentDTO);
         if(dbInstructor.isPresent()) {
             return ResponseEntity.status(201).body("Successfully updated!");
         } else {
